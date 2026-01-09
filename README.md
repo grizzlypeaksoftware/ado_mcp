@@ -4,10 +4,18 @@ A Model Context Protocol (MCP) server that provides tools for interacting with A
 
 ## Features
 
-- **Work Items**: Query, create, update, delete work items and add comments
+- **Work Items**: Query, create, update, delete work items, comments, linking, and attachments
 - **Git Repositories**: List repos, branches, commits, and file contents
-- **Branch Management**: Create and delete branches
-- **Project Information**: List projects and get project details
+- **Pull Requests**: Full PR lifecycle, reviewers, comments, merging
+- **Pipelines & Builds**: List, run, cancel pipelines and builds, view logs
+- **Releases**: Release definitions, deployments, approvals
+- **Boards**: Kanban boards, columns, swimlanes, card movement
+- **Wiki**: Create, update, delete wiki pages
+- **Test Plans**: Test plans, suites, cases, runs, and results
+- **Artifacts**: Package feeds and packages
+- **Project & Teams**: Projects, teams, iterations, area paths
+- **Users & Notifications**: User search, notification subscriptions
+- **Dashboards & Policies**: Dashboard management, branch policies
 
 ## Prerequisites
 
@@ -39,7 +47,15 @@ npm run build
 3. Configure the following scopes:
    - **Work Items**: Read & Write
    - **Code**: Read & Write
+   - **Build**: Read & Execute
+   - **Release**: Read, Write & Execute
+   - **Test Management**: Read & Write
+   - **Wiki**: Read & Write
+   - **Packaging**: Read
    - **Project and Team**: Read
+   - **Service Connections**: Read
+   - **Variable Groups**: Read
+   - **Dashboard**: Read
 4. Copy the generated token
 
 ### Claude Desktop Configuration
@@ -118,44 +134,35 @@ Alternatively, create a `.vscode/mcp.json` file in your workspace:
 
 ## Implementation Status
 
-This is an MVP implementation covering 20 of the 100 tools defined in the [full specification](azure-devops-mcp-spec.md).
-
-### Implemented
+All 100 tools defined in the [full specification](azure-devops-mcp-spec.md) are now implemented.
 
 | Category | Tools | Status |
 |----------|-------|--------|
 | Work Items (Core) | 7 | ✅ Complete |
+| Work Item Linking | 3 | ✅ Complete |
+| Work Item Attachments | 4 | ✅ Complete |
 | Git Repositories | 10 | ✅ Complete |
-| Projects | 2 | ✅ Complete |
-| Users | 1 | ✅ Complete |
+| Pull Requests | 11 | ✅ Complete |
+| Boards | 5 | ✅ Complete |
+| Projects & Teams | 7 | ✅ Complete |
+| Pipelines | 7 | ✅ Complete |
+| Builds (Classic) | 6 | ✅ Complete |
+| Releases | 9 | ✅ Complete |
+| Wiki | 7 | ✅ Complete |
+| Test Plans | 7 | ✅ Complete |
+| Artifacts | 5 | ✅ Complete |
+| Service Connections | 2 | ✅ Complete |
+| Variable Groups | 2 | ✅ Complete |
+| Users | 3 | ✅ Complete |
+| Notifications | 1 | ✅ Complete |
+| Dashboards | 2 | ✅ Complete |
+| Branch Policies | 2 | ✅ Complete |
 
-### Not Yet Implemented
-
-| Category | Tools | Description |
-|----------|-------|-------------|
-| Work Item Linking | 3 | link_work_items, remove_work_item_link, get_linked_work_items |
-| Work Item Attachments | 4 | add/remove attachments, list attachments |
-| Boards | 5 | get boards, columns, swimlanes, move cards |
-| Teams & Iterations | 5 | list_teams, get_team_members, iterations, area_paths |
-| Pull Requests | 11 | Full PR lifecycle, reviewers, comments, merging |
-| Pipelines | 7 | list/run/cancel pipelines, get logs |
-| Builds (Classic) | 6 | list/queue/cancel builds, get logs |
-| Releases | 9 | release definitions, deployments, approvals |
-| Wiki | 7 | wiki pages CRUD |
-| Test Plans | 7 | test plans, suites, cases, runs, results |
-| Artifacts | 5 | feeds and packages |
-| Service Connections | 2 | list and get service endpoints |
-| Variable Groups | 2 | list and get variable groups |
-| Users (Extended) | 2 | search_users, get_user |
-| Notifications | 1 | list_subscriptions |
-| Dashboards | 2 | list and get dashboards |
-| Branch Policies | 2 | list and get policies |
-
-**Total: 20 implemented / 100 specified**
+**Total: 100 tools implemented**
 
 ## Available Tools
 
-### Work Items
+### Work Items (Core)
 
 | Tool | Description |
 |------|-------------|
@@ -167,7 +174,24 @@ This is an MVP implementation covering 20 of the 100 tools defined in the [full 
 | `add_work_item_comment` | Add a comment to a work item |
 | `search_work_items` | Search work items by keyword |
 
-### Git
+### Work Item Linking
+
+| Tool | Description |
+|------|-------------|
+| `link_work_items` | Create a link between work items |
+| `remove_work_item_link` | Remove a link between work items |
+| `get_linked_work_items` | Get all linked work items |
+
+### Work Item Attachments
+
+| Tool | Description |
+|------|-------------|
+| `add_work_item_attachment` | Add file attachment from base64 |
+| `add_work_item_attachment_from_url` | Add attachment from URL |
+| `list_work_item_attachments` | List attachments on a work item |
+| `remove_work_item_attachment` | Remove an attachment |
+
+### Git Repositories
 
 | Tool | Description |
 |------|-------------|
@@ -182,13 +206,156 @@ This is an MVP implementation covering 20 of the 100 tools defined in the [full 
 | `create_branch` | Create a new branch |
 | `delete_branch` | Delete a branch |
 
-### Projects
+### Pull Requests
 
 | Tool | Description |
 |------|-------------|
-| `list_projects` | List all projects in the organization |
+| `list_pull_requests` | List pull requests with filters |
+| `get_pull_request` | Get PR details |
+| `create_pull_request` | Create a new pull request |
+| `update_pull_request` | Update PR title/description/status |
+| `add_pull_request_reviewer` | Add a reviewer to a PR |
+| `remove_pull_request_reviewer` | Remove a reviewer from a PR |
+| `add_pull_request_comment` | Add a comment to a PR |
+| `get_pull_request_comments` | Get all comments on a PR |
+| `complete_pull_request` | Complete/merge a PR |
+| `get_pull_request_work_items` | Get linked work items |
+| `link_pull_request_work_item` | Link a work item to a PR |
+
+### Boards
+
+| Tool | Description |
+|------|-------------|
+| `get_boards` | Get boards for a team |
+| `get_board_columns` | Get columns for a board |
+| `get_board_items` | Get items on a board |
+| `move_board_card` | Move a card to a column/lane |
+| `get_board_swimlanes` | Get swimlanes for a board |
+
+### Projects & Teams
+
+| Tool | Description |
+|------|-------------|
+| `list_projects` | List all projects |
 | `get_project` | Get project details |
+| `list_teams` | List teams in a project |
+| `get_team_members` | Get team members |
+| `list_iterations` | List iterations for a team |
+| `get_current_iteration` | Get the current iteration |
+| `list_area_paths` | List area paths |
+
+### Pipelines
+
+| Tool | Description |
+|------|-------------|
+| `list_pipelines` | List YAML pipelines |
+| `get_pipeline` | Get pipeline details |
+| `list_pipeline_runs` | List pipeline runs |
+| `get_pipeline_run` | Get run details |
+| `run_pipeline` | Start a pipeline run |
+| `cancel_pipeline_run` | Cancel a running pipeline |
+| `get_pipeline_logs` | Get logs for a run |
+
+### Builds (Classic)
+
+| Tool | Description |
+|------|-------------|
+| `list_build_definitions` | List build definitions |
+| `list_builds` | List builds |
+| `get_build` | Get build details |
+| `queue_build` | Queue a new build |
+| `cancel_build` | Cancel a build |
+| `get_build_logs` | Get build logs |
+
+### Releases
+
+| Tool | Description |
+|------|-------------|
+| `list_release_definitions` | List release definitions |
+| `get_release_definition` | Get definition details |
+| `list_releases` | List releases |
+| `get_release` | Get release details |
+| `create_release` | Create a new release |
+| `deploy_release` | Deploy to an environment |
+| `get_release_environment` | Get environment status |
+| `approve_release` | Approve a deployment |
+| `get_release_logs` | Get deployment logs |
+
+### Wiki
+
+| Tool | Description |
+|------|-------------|
+| `list_wikis` | List wikis in a project |
+| `get_wiki` | Get wiki details |
+| `get_wiki_page` | Get wiki page content |
+| `create_wiki_page` | Create a new wiki page |
+| `update_wiki_page` | Update a wiki page |
+| `delete_wiki_page` | Delete a wiki page |
+| `list_wiki_pages` | List pages in a wiki |
+
+### Test Plans
+
+| Tool | Description |
+|------|-------------|
+| `list_test_plans` | List test plans |
+| `get_test_plan` | Get test plan details |
+| `list_test_suites` | List test suites |
+| `get_test_suite` | Get test suite details |
+| `list_test_cases` | List test cases in a suite |
+| `list_test_runs` | List test runs |
+| `get_test_results` | Get test results |
+
+### Artifacts
+
+| Tool | Description |
+|------|-------------|
+| `list_feeds` | List artifact feeds |
+| `get_feed` | Get feed details |
+| `list_packages` | List packages in a feed |
+| `get_package` | Get package details |
+| `get_package_versions` | Get package versions |
+
+### Service Connections
+
+| Tool | Description |
+|------|-------------|
+| `list_service_connections` | List service connections |
+| `get_service_connection` | Get connection details |
+
+### Variable Groups
+
+| Tool | Description |
+|------|-------------|
+| `list_variable_groups` | List variable groups |
+| `get_variable_group` | Get group details with variables |
+
+### Users
+
+| Tool | Description |
+|------|-------------|
 | `get_current_user` | Get authenticated user info |
+| `search_users` | Search for users |
+| `get_user` | Get user details |
+
+### Notifications
+
+| Tool | Description |
+|------|-------------|
+| `list_subscriptions` | List notification subscriptions |
+
+### Dashboards
+
+| Tool | Description |
+|------|-------------|
+| `list_dashboards` | List dashboards |
+| `get_dashboard` | Get dashboard with widgets |
+
+### Branch Policies
+
+| Tool | Description |
+|------|-------------|
+| `list_branch_policies` | List branch policies |
+| `get_branch_policy` | Get policy details |
 
 ## Example Usage
 

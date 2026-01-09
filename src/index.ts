@@ -11,6 +11,21 @@ import { workItemTools, handleWorkItemTool } from "./tools/work-items/index.js";
 import { gitTools, handleGitTool } from "./tools/git/index.js";
 import { projectTools, handleProjectTool } from "./tools/project/index.js";
 import { userTools, handleUserTool } from "./tools/users/index.js";
+import { linkTools, handleLinkTool } from "./tools/links/index.js";
+import { attachmentTools, handleAttachmentTool } from "./tools/attachments/index.js";
+import { boardTools, handleBoardTool } from "./tools/boards/index.js";
+import { pullRequestTools, handlePullRequestTool } from "./tools/pull-requests/index.js";
+import { pipelineTools, handlePipelineTool } from "./tools/pipelines/index.js";
+import { buildTools, handleBuildTool } from "./tools/builds/index.js";
+import { releaseTools, handleReleaseTool } from "./tools/releases/index.js";
+import { wikiTools, handleWikiTool } from "./tools/wiki/index.js";
+import { testPlanTools, handleTestPlanTool } from "./tools/test-plans/index.js";
+import { artifactTools, handleArtifactTool } from "./tools/artifacts/index.js";
+import { serviceConnectionTools, handleServiceConnectionTool } from "./tools/service-connections/index.js";
+import { variableGroupTools, handleVariableGroupTool } from "./tools/variable-groups/index.js";
+import { notificationTools, handleNotificationTool } from "./tools/notifications/index.js";
+import { dashboardTools, handleDashboardTool } from "./tools/dashboards/index.js";
+import { policyTools, handlePolicyTool } from "./tools/policies/index.js";
 
 // Validate required environment variables
 function validateEnv(): { orgUrl: string; pat: string; defaultProject?: string } {
@@ -58,9 +73,24 @@ async function main() {
   // Collect all tools
   const allTools = [
     ...workItemTools,
-    ...gitTools,
+    ...linkTools,
+    ...attachmentTools,
+    ...boardTools,
     ...projectTools,
+    ...gitTools,
+    ...pullRequestTools,
+    ...pipelineTools,
+    ...buildTools,
+    ...releaseTools,
+    ...wikiTools,
+    ...testPlanTools,
+    ...artifactTools,
+    ...serviceConnectionTools,
+    ...variableGroupTools,
     ...userTools,
+    ...notificationTools,
+    ...dashboardTools,
+    ...policyTools,
   ];
 
   // Register list tools handler
@@ -78,12 +108,42 @@ async function main() {
       // Route to appropriate handler
       if (workItemTools.some((t) => t.name === name)) {
         result = await handleWorkItemTool(adoClient, name, args);
-      } else if (gitTools.some((t) => t.name === name)) {
-        result = await handleGitTool(adoClient, name, args);
+      } else if (linkTools.some((t) => t.name === name)) {
+        result = await handleLinkTool(adoClient, name, args);
+      } else if (attachmentTools.some((t) => t.name === name)) {
+        result = await handleAttachmentTool(adoClient, name, args);
+      } else if (boardTools.some((t) => t.name === name)) {
+        result = await handleBoardTool(adoClient, name, args);
       } else if (projectTools.some((t) => t.name === name)) {
         result = await handleProjectTool(adoClient, name, args);
+      } else if (gitTools.some((t) => t.name === name)) {
+        result = await handleGitTool(adoClient, name, args);
+      } else if (pullRequestTools.some((t) => t.name === name)) {
+        result = await handlePullRequestTool(adoClient, name, args);
+      } else if (pipelineTools.some((t) => t.name === name)) {
+        result = await handlePipelineTool(adoClient, name, args);
+      } else if (buildTools.some((t) => t.name === name)) {
+        result = await handleBuildTool(adoClient, name, args);
+      } else if (releaseTools.some((t) => t.name === name)) {
+        result = await handleReleaseTool(adoClient, name, args);
+      } else if (wikiTools.some((t) => t.name === name)) {
+        result = await handleWikiTool(adoClient, name, args);
+      } else if (testPlanTools.some((t) => t.name === name)) {
+        result = await handleTestPlanTool(adoClient, name, args);
+      } else if (artifactTools.some((t) => t.name === name)) {
+        result = await handleArtifactTool(adoClient, name, args);
+      } else if (serviceConnectionTools.some((t) => t.name === name)) {
+        result = await handleServiceConnectionTool(adoClient, name, args);
+      } else if (variableGroupTools.some((t) => t.name === name)) {
+        result = await handleVariableGroupTool(adoClient, name, args);
       } else if (userTools.some((t) => t.name === name)) {
         result = await handleUserTool(adoClient, name, args);
+      } else if (notificationTools.some((t) => t.name === name)) {
+        result = await handleNotificationTool(adoClient, name, args);
+      } else if (dashboardTools.some((t) => t.name === name)) {
+        result = await handleDashboardTool(adoClient, name, args);
+      } else if (policyTools.some((t) => t.name === name)) {
+        result = await handlePolicyTool(adoClient, name, args);
       } else {
         throw new Error(`Unknown tool: ${name}`);
       }
