@@ -138,7 +138,7 @@ All 100 tools defined in the [full specification](azure-devops-mcp-spec.md) are 
 
 | Category | Tools | Status |
 |----------|-------|--------|
-| Work Items (Core) | 7 | ✅ Complete |
+| Work Items (Core) | 13 | ✅ Complete |
 | Work Item Linking | 3 | ✅ Complete |
 | Work Item Attachments | 4 | ✅ Complete |
 | Git Repositories | 10 | ✅ Complete |
@@ -158,7 +158,7 @@ All 100 tools defined in the [full specification](azure-devops-mcp-spec.md) are 
 | Dashboards | 2 | ✅ Complete |
 | Branch Policies | 2 | ✅ Complete |
 
-**Total: 100 tools implemented**
+**Total: 106 tools implemented**
 
 ## Available Tools
 
@@ -172,7 +172,13 @@ All 100 tools defined in the [full specification](azure-devops-mcp-spec.md) are 
 | `update_work_item` | Update an existing work item |
 | `delete_work_item` | Delete or recycle a work item |
 | `add_work_item_comment` | Add a comment to a work item |
-| `search_work_items` | Search work items by keyword |
+| `search_work_items` | Search work items by keyword (requires search text) |
+| `query_work_items` | Query work items with flexible filtering (no search text required) |
+| `list_epics` | List Epic work items with optional filtering |
+| `list_features` | List Feature work items with optional filtering |
+| `list_user_stories` | List User Story work items with optional filtering |
+| `list_bugs` | List Bug work items with optional filtering |
+| `list_tasks` | List Task work items with optional filtering |
 
 ### Work Item Linking
 
@@ -359,7 +365,32 @@ All 100 tools defined in the [full specification](azure-devops-mcp-spec.md) are 
 
 ## Example Usage
 
-### Query Active Bugs
+### List Active Bugs (Simple)
+
+```
+Use list_bugs with:
+- states: ["Active"]
+```
+
+### List All Epics in a Sprint
+
+```
+Use list_epics with:
+- iterationPath: "MyProject\\Sprint 1"
+- states: ["New", "Active"]
+```
+
+### Query Work Items with Flexible Filters
+
+```
+Use query_work_items with:
+- workItemTypes: ["Bug", "Task"]
+- states: ["Active"]
+- assignedTo: "user@example.com"
+- tags: ["priority-high"]
+```
+
+### Query Active Bugs (Advanced WIQL)
 
 ```
 Use list_work_items with query:

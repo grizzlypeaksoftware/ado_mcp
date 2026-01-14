@@ -56,7 +56,7 @@ export const listFeaturesTool = {
 
 export async function listFeatures(
   client: AdoClient,
-  params: z.infer<typeof listFeaturesSchema>
+  params: z.input<typeof listFeaturesSchema>
 ): Promise<WorkItemSummary[]> {
   const validatedParams = listFeaturesSchema.parse(params);
 

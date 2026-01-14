@@ -56,7 +56,7 @@ export const listBugsTool = {
 
 export async function listBugs(
   client: AdoClient,
-  params: z.infer<typeof listBugsSchema>
+  params: z.input<typeof listBugsSchema>
 ): Promise<WorkItemSummary[]> {
   const validatedParams = listBugsSchema.parse(params);
 

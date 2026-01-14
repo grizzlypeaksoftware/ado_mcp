@@ -56,7 +56,7 @@ export const listUserStoriesTool = {
 
 export async function listUserStories(
   client: AdoClient,
-  params: z.infer<typeof listUserStoriesSchema>
+  params: z.input<typeof listUserStoriesSchema>
 ): Promise<WorkItemSummary[]> {
   const validatedParams = listUserStoriesSchema.parse(params);
 

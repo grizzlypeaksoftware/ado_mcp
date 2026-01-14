@@ -56,7 +56,7 @@ export const listEpicsTool = {
 
 export async function listEpics(
   client: AdoClient,
-  params: z.infer<typeof listEpicsSchema>
+  params: z.input<typeof listEpicsSchema>
 ): Promise<WorkItemSummary[]> {
   const validatedParams = listEpicsSchema.parse(params);
 

@@ -56,7 +56,7 @@ export const listTasksTool = {
 
 export async function listTasks(
   client: AdoClient,
-  params: z.infer<typeof listTasksSchema>
+  params: z.input<typeof listTasksSchema>
 ): Promise<WorkItemSummary[]> {
   const validatedParams = listTasksSchema.parse(params);
 
