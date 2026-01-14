@@ -17,6 +17,15 @@ A Model Context Protocol (MCP) server that provides tools for interacting with A
 - **Users & Notifications**: User search, notification subscriptions
 - **Dashboards & Policies**: Dashboard management, branch policies
 
+## Transport Modes
+
+The server supports two transport modes:
+
+| Mode | Use Case | Command |
+|------|----------|---------|
+| **STDIO** | Claude Desktop, VS Code, local CLI tools | `npm run start:stdio` |
+| **HTTP** | Web apps, remote clients, SaaS deployment | `npm run start:http` |
+
 ## Prerequisites
 
 - Node.js 18 or higher
@@ -39,6 +48,9 @@ npm run build
 | `ADO_PAT` | Yes | Personal Access Token |
 | `ADO_ORG_URL` | Yes | Organization URL (e.g., `https://dev.azure.com/myorg`) |
 | `ADO_PROJECT` | No | Default project name |
+| `MCP_HTTP_PORT` | No | HTTP server port (default: 3000) |
+| `MCP_SESSION_TIMEOUT` | No | Session timeout in minutes (default: 30) |
+| `MCP_CORS_ORIGINS` | No | Allowed CORS origins (comma-separated) |
 
 ### Generating a Personal Access Token
 
@@ -131,6 +143,52 @@ Alternatively, create a `.vscode/mcp.json` file in your workspace:
    - "Show me the branches in the main repository"
 
 > **Note**: MCP support in GitHub Copilot requires the latest version of the GitHub Copilot Chat extension. If you don't see MCP settings, update your extension.
+
+### HTTP Mode
+
+For web applications, remote clients, or when you want to run the server as a standalone service:
+
+**Quick Start:**
+```bash
+# Set environment variables
+export ADO_ORG_URL="https://dev.azure.com/your-org"
+export ADO_PAT="your-pat-token"
+export ADO_PROJECT="your-project"
+
+# Start in HTTP mode
+npm run start:http
+```
+
+**Test the server:**
+```bash
+# Health check
+curl http://localhost:3000/health
+
+# List tools
+curl -X POST http://localhost:3000/mcp \
+  -H "Content-Type: application/json" \
+  -d '{"jsonrpc":"2.0","method":"tools/list","id":1}'
+
+# Call a tool
+curl -X POST http://localhost:3000/mcp \
+  -H "Content-Type: application/json" \
+  -d '{"jsonrpc":"2.0","method":"tools/call","params":{"name":"list_projects","arguments":{}},"id":2}'
+```
+
+**Docker:**
+```bash
+# Build and run
+docker-compose up -d
+
+# Or build manually
+docker build -t ado-mcp .
+docker run -p 3000:3000 \
+  -e ADO_ORG_URL="https://dev.azure.com/your-org" \
+  -e ADO_PAT="your-pat-token" \
+  ado-mcp
+```
+
+For detailed HTTP API documentation, see [docs/HTTP_API.md](docs/HTTP_API.md).
 
 ## Implementation Status
 
@@ -423,14 +481,23 @@ npm install
 # Build
 npm run build
 
+# Run in STDIO mode (for Claude Desktop, VS Code)
+npm run start:stdio
+
+# Run in HTTP mode (for web apps, remote clients)
+npm run start:http
+
+# Development mode (auto-rebuild)
+npm run dev
+
+# Development - HTTP mode with ts-node
+npm run dev:http
+
 # Run tests
 npm test
 
 # Run tests with coverage
 npm run test:coverage
-
-# Watch mode for development
-npm run dev
 ```
 
 ## Troubleshooting

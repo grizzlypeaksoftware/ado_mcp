@@ -1,11 +1,7 @@
 import "dotenv/config";
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
-import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
-import {
-  CallToolRequestSchema,
-  ListToolsRequestSchema,
-} from "@modelcontextprotocol/sdk/types.js";
 import { AdoClient } from "./ado-client.js";
+import { HttpTransport } from "./transports/http-transport.js";
 
 // Import tool registrations
 import { workItemTools, handleWorkItemTool } from "./tools/work-items/index.js";
@@ -29,10 +25,12 @@ import { dashboardTools, handleDashboardTool } from "./tools/dashboards/index.js
 import { policyTools, handlePolicyTool } from "./tools/policies/index.js";
 
 // Validate required environment variables
-function validateEnv(): { orgUrl: string; pat: string; defaultProject?: string } {
+function validateEnv(): { orgUrl: string; pat: string; defaultProject?: string; port: number; sessionTimeout: number } {
   const orgUrl = process.env.ADO_ORG_URL;
   const pat = process.env.ADO_PAT;
   const defaultProject = process.env.ADO_PROJECT;
+  const port = parseInt(process.env.MCP_HTTP_PORT || "3000", 10);
+  const sessionTimeout = parseInt(process.env.MCP_SESSION_TIMEOUT || "30", 10);
 
   if (!orgUrl) {
     throw new Error("ADO_ORG_URL environment variable is required");
@@ -41,11 +39,13 @@ function validateEnv(): { orgUrl: string; pat: string; defaultProject?: string }
     throw new Error("ADO_PAT environment variable is required");
   }
 
-  return { orgUrl, pat, defaultProject };
+  return { orgUrl, pat, defaultProject, port, sessionTimeout };
 }
 
 async function main() {
   const env = validateEnv();
+
+  console.log("Starting Azure DevOps MCP Server (HTTP mode)...");
 
   // Initialize ADO client
   const adoClient = new AdoClient(env.orgUrl, env.pat, env.defaultProject);
@@ -53,6 +53,7 @@ async function main() {
   // Validate connection
   try {
     await adoClient.validateConnection();
+    console.log("Successfully connected to Azure DevOps");
   } catch (error) {
     console.error("Failed to connect to Azure DevOps:", error);
     process.exit(1);
@@ -94,13 +95,21 @@ async function main() {
     ...policyTools,
   ];
 
-  // Register list tools handler
-  server.setRequestHandler(ListToolsRequestSchema, async () => {
+  console.log(`Loaded ${allTools.length} tools`);
+
+  // Create HTTP transport
+  const httpTransport = new HttpTransport(server, {
+    port: env.port,
+    sessionTimeoutMinutes: env.sessionTimeout,
+  });
+
+  // Set up tools list handler
+  httpTransport.setToolsHandler(async () => {
     return { tools: allTools };
   });
 
-  // Register call tool handler
-  server.setRequestHandler(CallToolRequestSchema, async (request) => {
+  // Set up tool call handler
+  httpTransport.setCallToolHandler(async (request) => {
     const { name, arguments: args } = request.params;
 
     try {
@@ -171,9 +180,21 @@ async function main() {
     }
   });
 
-  // Connect via stdio
-  const transport = new StdioServerTransport();
-  await server.connect(transport);
+  // Handle graceful shutdown
+  process.on("SIGINT", async () => {
+    console.log("\nShutting down...");
+    await httpTransport.stop();
+    process.exit(0);
+  });
+
+  process.on("SIGTERM", async () => {
+    console.log("\nShutting down...");
+    await httpTransport.stop();
+    process.exit(0);
+  });
+
+  // Start the HTTP server
+  await httpTransport.start();
 }
 
 main().catch((error) => {
