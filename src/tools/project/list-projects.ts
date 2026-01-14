@@ -11,7 +11,7 @@ export const listProjectsSchema = z.object({
 
 export const listProjectsTool = {
   name: "list_projects",
-  description: "List all projects in the organization",
+  description: "List all Azure DevOps projects in the organization. Projects are top-level containers for repos, pipelines, boards, and work items. Use this to discover available projects before other operations.",
   inputSchema: {
     type: "object" as const,
     properties: {

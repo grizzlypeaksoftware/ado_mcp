@@ -9,7 +9,7 @@ export const getBoardSwimlanesSchema = z.object({
 
 export const getBoardSwimlanesTool = {
   name: "get_board_swimlanes",
-  description: "Get swimlanes for a board",
+  description: "Get the horizontal swimlanes configured on a Kanban board. Swimlanes are rows used to categorize work items (e.g., by priority or type). Requires a board name from get_boards.",
   inputSchema: {
     type: "object" as const,
     properties: {

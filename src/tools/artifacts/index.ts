@@ -34,7 +34,7 @@ const getPackageVersionsSchema = z.object({
 // Tool definitions
 export const listFeedsTool = {
   name: "list_feeds",
-  description: "List artifact feeds",
+  description: "List Azure Artifacts feeds (package repositories for npm, NuGet, Maven, PyPI, etc.). Feeds store and share packages across projects. NOT for listing Kanban boards or teams.",
   inputSchema: {
     type: "object" as const,
     properties: {
@@ -46,7 +46,7 @@ export const listFeedsTool = {
 
 export const getFeedTool = {
   name: "get_feed",
-  description: "Get details for a feed",
+  description: "Get detailed information about a specific Azure Artifacts feed including its upstream sources and permissions. Requires a feed ID from list_feeds.",
   inputSchema: {
     type: "object" as const,
     properties: {
@@ -59,7 +59,7 @@ export const getFeedTool = {
 
 export const listPackagesTool = {
   name: "list_packages",
-  description: "List packages in a feed",
+  description: "List packages (npm, NuGet, Maven, etc.) stored in an Azure Artifacts feed. Can filter by package type and name. Requires a feed ID from list_feeds.",
   inputSchema: {
     type: "object" as const,
     properties: {
@@ -75,7 +75,7 @@ export const listPackagesTool = {
 
 export const getPackageTool = {
   name: "get_package",
-  description: "Get details for a package",
+  description: "Get detailed information about a specific package in an Azure Artifacts feed, including its description and latest version. Requires feed ID and package ID.",
   inputSchema: {
     type: "object" as const,
     properties: {
@@ -89,7 +89,7 @@ export const getPackageTool = {
 
 export const getPackageVersionsTool = {
   name: "get_package_versions",
-  description: "Get all versions of a package",
+  description: "Get the version history of a specific package in an Azure Artifacts feed. Shows all published versions with their dates and status. Requires feed ID and package ID.",
   inputSchema: {
     type: "object" as const,
     properties: {

@@ -9,7 +9,7 @@ export const getTeamMembersSchema = z.object({
 
 export const getTeamMembersTool = {
   name: "get_team_members",
-  description: "Get members of a team",
+  description: "Get the list of people who are members of a specific Azure DevOps team. Returns user display names, emails, and IDs. Requires a team name (use list_teams first to find team names).",
   inputSchema: {
     type: "object" as const,
     properties: {

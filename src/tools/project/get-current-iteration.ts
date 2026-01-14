@@ -9,7 +9,7 @@ export const getCurrentIterationSchema = z.object({
 
 export const getCurrentIterationTool = {
   name: "get_current_iteration",
-  description: "Get the current active iteration",
+  description: "Get the currently active iteration (sprint) for a team. Returns the iteration that is in progress right now based on its date range. Useful for finding what sprint the team is working on.",
   inputSchema: {
     type: "object" as const,
     properties: {

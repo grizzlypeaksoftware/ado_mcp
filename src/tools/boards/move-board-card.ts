@@ -13,7 +13,7 @@ export const moveBoardCardSchema = z.object({
 
 export const moveBoardCardTool = {
   name: "move_board_card",
-  description: "Move a work item card on the board",
+  description: "Move a work item to a different column (and optionally swimlane) on a Kanban board. This updates the work item's state to match the target column. Use get_board_columns first to see available columns.",
   inputSchema: {
     type: "object" as const,
     properties: {

@@ -16,7 +16,7 @@ const getDashboardSchema = z.object({
 // Tool definitions
 export const listDashboardsTool = {
   name: "list_dashboards",
-  description: "List dashboards in a project",
+  description: "List Azure DevOps dashboards (visual reporting pages with widgets showing charts, queries, and metrics). Dashboards are NOT Kanban boards - use get_boards for Kanban boards.",
   inputSchema: {
     type: "object" as const,
     properties: {
@@ -29,7 +29,7 @@ export const listDashboardsTool = {
 
 export const getDashboardTool = {
   name: "get_dashboard",
-  description: "Get details for a dashboard including widgets",
+  description: "Get detailed information about a specific Azure DevOps dashboard including its configured widgets. Requires a dashboard ID from list_dashboards.",
   inputSchema: {
     type: "object" as const,
     properties: {

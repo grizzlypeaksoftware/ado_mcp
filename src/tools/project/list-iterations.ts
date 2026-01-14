@@ -12,7 +12,7 @@ export const listIterationsSchema = z.object({
 
 export const listIterationsTool = {
   name: "list_iterations",
-  description: "List iterations/sprints for a project",
+  description: "List iterations (sprints) for a team. Iterations are time-boxed periods for planning work. Returns iteration paths, dates, and state (past/current/future). NOT for listing Kanban boards - use get_boards instead.",
   inputSchema: {
     type: "object" as const,
     properties: {
