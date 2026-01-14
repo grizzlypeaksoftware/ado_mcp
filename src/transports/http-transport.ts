@@ -279,31 +279,57 @@ export class HttpTransport {
   }
 
   /**
-   * Start the HTTP server
+   * Start the HTTP server, auto-selecting next available port if needed
    */
   async start(): Promise<void> {
-    return new Promise((resolve, reject) => {
-      // Create server without starting to listen yet
-      this.httpServer = this.app.listen(this.port);
+    const maxRetries = 10;
+    const startPort = this.port;
 
-      // Handle successful listening
-      this.httpServer.on("listening", () => {
+    for (let attempt = 0; attempt < maxRetries; attempt++) {
+      const portToTry = startPort + attempt;
+
+      try {
+        await this.tryPort(portToTry);
+        this.port = portToTry; // Update port to the one we actually bound to
+
+        if (attempt > 0) {
+          console.log(`(Port ${startPort} was in use, using ${portToTry} instead)`);
+        }
         console.log(`MCP HTTP Server listening on port ${this.port}`);
         console.log(`Health check: http://localhost:${this.port}/health`);
         console.log(`MCP endpoint: http://localhost:${this.port}/mcp`);
+        return;
+      } catch (error) {
+        const err = error as NodeJS.ErrnoException;
+        if (err.code === "EADDRINUSE") {
+          // Port in use, try next one
+          continue;
+        }
+        // Other error, fail immediately
+        console.error(`\nError starting server: ${err.message}\n`);
+        throw error;
+      }
+    }
+
+    // All ports exhausted
+    console.error(`\nError: Could not find an available port.`);
+    console.error(`Tried ports ${startPort} through ${startPort + maxRetries - 1}.`);
+    console.error(`Please free up a port or specify a different starting port.\n`);
+    throw new Error(`No available ports in range ${startPort}-${startPort + maxRetries - 1}`);
+  }
+
+  /**
+   * Try to listen on a specific port
+   */
+  private tryPort(port: number): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.httpServer = this.app.listen(port);
+
+      this.httpServer.on("listening", () => {
         resolve();
       });
 
-      // Handle errors (including EADDRINUSE)
       this.httpServer.on("error", (error: NodeJS.ErrnoException) => {
-        if (error.code === "EADDRINUSE") {
-          console.error(`\nError: Port ${this.port} is already in use.`);
-          console.error(`Try one of the following:`);
-          console.error(`  1. Stop the process using port ${this.port}`);
-          console.error(`  2. Set a different port: MCP_HTTP_PORT=3001 npm run start:http\n`);
-        } else {
-          console.error(`\nError starting server: ${error.message}\n`);
-        }
         reject(error);
       });
     });
