@@ -27,3 +27,7 @@ npm-debug.log*
 
 # Test
 *.test.js.map
+
+# Claude Code
+tmpclaude*
+.claude/settings.local.json
