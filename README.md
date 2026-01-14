@@ -196,7 +196,7 @@ All 100 tools defined in the [full specification](azure-devops-mcp-spec.md) are 
 
 | Category | Tools | Status |
 |----------|-------|--------|
-| Work Items (Core) | 13 | ✅ Complete |
+| Work Items (Core) | 23 | ✅ Complete |
 | Work Item Linking | 3 | ✅ Complete |
 | Work Item Attachments | 4 | ✅ Complete |
 | Git Repositories | 10 | ✅ Complete |
@@ -216,7 +216,7 @@ All 100 tools defined in the [full specification](azure-devops-mcp-spec.md) are 
 | Dashboards | 2 | ✅ Complete |
 | Branch Policies | 2 | ✅ Complete |
 
-**Total: 106 tools implemented**
+**Total: 116 tools implemented**
 
 ## Available Tools
 
@@ -237,6 +237,16 @@ All 100 tools defined in the [full specification](azure-devops-mcp-spec.md) are 
 | `list_user_stories` | List User Story work items with optional filtering |
 | `list_bugs` | List Bug work items with optional filtering |
 | `list_tasks` | List Task work items with optional filtering |
+| `get_epic` | Get Epic details by ID with type validation |
+| `get_feature` | Get Feature details by ID with type validation |
+| `get_user_story` | Get User Story details with acceptance criteria and story points |
+| `get_bug` | Get Bug details with repro steps, severity, and system info |
+| `get_task` | Get Task details with work tracking fields |
+| `create_epic` | Create an Epic with type-specific fields |
+| `create_feature` | Create a Feature with optional parent Epic link |
+| `create_user_story` | Create a User Story with acceptance criteria and story points |
+| `create_bug` | Create a Bug with repro steps and severity |
+| `create_task` | Create a Task with work estimates and activity type |
 
 ### Work Item Linking
 
