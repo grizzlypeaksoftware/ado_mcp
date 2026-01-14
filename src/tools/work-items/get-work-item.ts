@@ -2,6 +2,7 @@ import { z } from "zod";
 import { AdoClient } from "../../ado-client.js";
 import { WorkItemDetails, WorkItemRelation, WorkItemAttachment } from "../../types.js";
 import { WorkItemExpand } from "azure-devops-node-api/interfaces/WorkItemTrackingInterfaces.js";
+import { getCycleTimeInfo, isClosedState } from "../../utils/cycle-time.js";
 
 export const getWorkItemSchema = z.object({
   id: z.number().describe("Work item ID"),
@@ -34,7 +35,7 @@ export const getWorkItemTool = {
 
 export async function getWorkItem(
   client: AdoClient,
-  params: z.infer<typeof getWorkItemSchema>
+  params: z.input<typeof getWorkItemSchema>
 ): Promise<WorkItemDetails> {
   const validatedParams = getWorkItemSchema.parse(params);
 
@@ -107,6 +108,11 @@ export async function getWorkItem(
   const tagsString = fields["System.Tags"] as string | undefined;
   const tags = tagsString ? tagsString.split(";").map((t) => t.trim()) : undefined;
 
+  // Get cycle time info from revision history
+  const state = fields["System.State"] as string;
+  const closedDate = isClosedState(state) ? fields["Microsoft.VSTS.Common.ClosedDate"] : undefined;
+  const cycleTimeInfo = await getCycleTimeInfo(client, validatedParams.id, closedDate);
+
   return {
     id: workItem.id || 0,
     title: fields["System.Title"] || "",
@@ -126,5 +132,7 @@ export async function getWorkItem(
     attachments,
     comments,
     url: workItem.url || "",
+    firstActivatedDate: cycleTimeInfo.firstActivatedDate,
+    cycleTimeDays: cycleTimeInfo.cycleTimeDays,
   };
 }

@@ -11,6 +11,7 @@ export const listFeaturesSchema = z.object({
   iterationPath: z.string().optional().describe("Filter by iteration/sprint path"),
   tags: z.array(z.string()).optional().describe("Filter by tags"),
   maxResults: z.number().optional().default(200).describe("Maximum number of results (default 200)"),
+  includeActivatedDate: z.boolean().optional().default(false).describe("Include firstActivatedDate from revision history (adds API calls)"),
 });
 
 export const listFeaturesTool = {
@@ -49,6 +50,10 @@ export const listFeaturesTool = {
         type: "number",
         description: "Maximum number of results (default 200)",
       },
+      includeActivatedDate: {
+        type: "boolean",
+        description: "Include firstActivatedDate from revision history (default false, adds API calls)",
+      },
     },
     required: [],
   },
@@ -72,5 +77,6 @@ export async function listFeatures(
     iterationPath: validatedParams.iterationPath,
     tags: validatedParams.tags,
     maxResults: validatedParams.maxResults,
+    includeActivatedDate: validatedParams.includeActivatedDate,
   });
 }

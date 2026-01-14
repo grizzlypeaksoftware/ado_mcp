@@ -4,7 +4,7 @@ A Model Context Protocol (MCP) server that provides tools for interacting with A
 
 ## Features
 
-- **Work Items**: Query, create, update, delete work items, comments, linking, and attachments
+- **Work Items**: Query, create, update, delete work items, comments, linking, attachments, and cycle time tracking
 - **Git Repositories**: List repos, branches, commits, and file contents
 - **Pull Requests**: Full PR lifecycle, reviewers, comments, merging
 - **Pipelines & Builds**: List, run, cancel pipelines and builds, view logs
@@ -480,6 +480,27 @@ Use create_work_item with:
 ```
 Use list_branches with:
 - repository: "my-repo"
+```
+
+### Get Cycle Time Data
+
+Work item get tools return `firstActivatedDate` (when work started) and `cycleTimeDays` (time from activation to close):
+
+```
+Use get_bug with:
+- id: 123
+
+Response includes:
+- firstActivatedDate: "2024-01-15T10:00:00Z"
+- cycleTimeDays: 5.5 (only for closed items)
+```
+
+For list tools, enable cycle time with `includeActivatedDate` (adds API calls per item):
+
+```
+Use list_bugs with:
+- states: ["Closed"]
+- includeActivatedDate: true
 ```
 
 ## Development

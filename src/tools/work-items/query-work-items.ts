@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { AdoClient } from "../../ado-client.js";
 import { WorkItemSummary } from "../../types.js";
+import { getCycleTimeInfoBatch } from "../../utils/cycle-time.js";
 
 export const queryWorkItemsSchema = z.object({
   project: z.string().optional().describe("Project name, defaults to ADO_PROJECT env var"),
@@ -12,6 +13,7 @@ export const queryWorkItemsSchema = z.object({
   tags: z.array(z.string()).optional().describe("Filter by tags (work items must have ALL specified tags)"),
   searchText: z.string().optional().describe("Optional text to search in title and description"),
   maxResults: z.number().optional().default(200).describe("Maximum number of results (default 200)"),
+  includeActivatedDate: z.boolean().optional().default(false).describe("Include firstActivatedDate from revision history (adds API calls, use sparingly)"),
 });
 
 export const queryWorkItemsTool = {
@@ -58,6 +60,10 @@ export const queryWorkItemsTool = {
       maxResults: {
         type: "number",
         description: "Maximum number of results (default 200)",
+      },
+      includeActivatedDate: {
+        type: "boolean",
+        description: "Include firstActivatedDate from revision history (default false, adds API calls)",
       },
     },
     required: [],
@@ -179,6 +185,23 @@ ORDER BY [System.ChangedDate] DESC`;
             url: wi.url || "",
           });
         }
+      }
+    }
+  }
+
+  // Optionally fetch cycle time info (adds API calls per work item)
+  if (validatedParams.includeActivatedDate && results.length > 0) {
+    const workItemsForCycleTime = results.map((wi) => ({
+      id: wi.id,
+      state: wi.state,
+    }));
+
+    const cycleTimeMap = await getCycleTimeInfoBatch(client, workItemsForCycleTime);
+
+    for (const result of results) {
+      const cycleInfo = cycleTimeMap.get(result.id);
+      if (cycleInfo?.firstActivatedDate) {
+        result.firstActivatedDate = cycleInfo.firstActivatedDate;
       }
     }
   }

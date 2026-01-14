@@ -3,6 +3,7 @@ import { AdoClient } from "../../ado-client.js";
 import { WorkItemDetails, WorkItemRelation, WorkItemAttachment } from "../../types.js";
 import { WorkItemExpand } from "azure-devops-node-api/interfaces/WorkItemTrackingInterfaces.js";
 import { formatDescription } from "../../utils/html-to-text.js";
+import { getCycleTimeInfo, isClosedState } from "../../utils/cycle-time.js";
 
 /**
  * Base schema for type-specific get operations
@@ -146,6 +147,13 @@ export async function getTypedWorkItem(
     comments,
     url: workItem.url || "",
   };
+
+  // Get cycle time info from revision history
+  const state = fields["System.State"] as string;
+  const closedDate = isClosedState(state) ? fields["Microsoft.VSTS.Common.ClosedDate"] : undefined;
+  const cycleTimeInfo = await getCycleTimeInfo(client, validatedParams.id, closedDate);
+  result.firstActivatedDate = cycleTimeInfo.firstActivatedDate;
+  result.cycleTimeDays = cycleTimeInfo.cycleTimeDays;
 
   // Add type-specific fields based on work item type
   switch (expectedType) {

@@ -67,6 +67,7 @@ Tools are organized by domain in `src/tools/`:
 ### Utilities
 
 - **`src/utils/html-to-text.ts`** - Converts HTML descriptions to plain text for better readability
+- **`src/utils/cycle-time.ts`** - Calculates cycle time from work item revision history (first activated date to closed)
 
 ### Type-Specific Work Item Tools
 

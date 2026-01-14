@@ -11,6 +11,8 @@ export interface WorkItemSummary {
   type: string;
   assignedTo?: string;
   url: string;
+  /** Date when work item was first moved to Active state (only included if requested) */
+  firstActivatedDate?: string;
 }
 
 export interface WorkItemDetails extends WorkItemSummary {
@@ -26,6 +28,10 @@ export interface WorkItemDetails extends WorkItemSummary {
   relations?: WorkItemRelation[];
   attachments?: WorkItemAttachment[];
   comments?: WorkItemComment[];
+  /** Date when work item was first moved to Active state (from revision history) */
+  firstActivatedDate?: string;
+  /** Cycle time in days from first activation to closed (only for closed items) */
+  cycleTimeDays?: number;
 }
 
 export interface WorkItemRelation {

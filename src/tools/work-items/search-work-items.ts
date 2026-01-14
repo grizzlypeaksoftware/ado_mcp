@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { AdoClient } from "../../ado-client.js";
 import { WorkItemSummary } from "../../types.js";
+import { getCycleTimeInfoBatch } from "../../utils/cycle-time.js";
 
 export const searchWorkItemsSchema = z.object({
   searchText: z.string().describe("Text to search for"),
@@ -9,6 +10,7 @@ export const searchWorkItemsSchema = z.object({
   states: z.array(z.string()).optional().describe("Filter by states"),
   assignedTo: z.string().optional().describe("Filter by assignee"),
   maxResults: z.number().optional().default(50).describe("Maximum number of results"),
+  includeActivatedDate: z.boolean().optional().default(false).describe("Include firstActivatedDate from revision history (adds API calls)"),
 });
 
 export const searchWorkItemsTool = {
@@ -43,6 +45,10 @@ export const searchWorkItemsTool = {
         type: "number",
         description: "Maximum number of results, default 50",
       },
+      includeActivatedDate: {
+        type: "boolean",
+        description: "Include firstActivatedDate from revision history (default false, adds API calls)",
+      },
     },
     required: ["searchText"],
   },
@@ -50,7 +56,7 @@ export const searchWorkItemsTool = {
 
 export async function searchWorkItems(
   client: AdoClient,
-  params: z.infer<typeof searchWorkItemsSchema>
+  params: z.input<typeof searchWorkItemsSchema>
 ): Promise<WorkItemSummary[]> {
   const validatedParams = searchWorkItemsSchema.parse(params);
   const project = client.resolveProject(validatedParams.project);
@@ -128,7 +134,7 @@ ORDER BY [System.ChangedDate] DESC`;
     return [];
   }
 
-  return workItems
+  const results: WorkItemSummary[] = workItems
     .filter((wi) => wi && wi.fields)
     .map((wi) => ({
       id: wi.id || 0,
@@ -138,4 +144,23 @@ ORDER BY [System.ChangedDate] DESC`;
       assignedTo: wi.fields!["System.AssignedTo"]?.displayName,
       url: wi.url || "",
     }));
+
+  // Optionally fetch cycle time info
+  if (validatedParams.includeActivatedDate && results.length > 0) {
+    const workItemsForCycleTime = results.map((wi) => ({
+      id: wi.id,
+      state: wi.state,
+    }));
+
+    const cycleTimeMap = await getCycleTimeInfoBatch(client, workItemsForCycleTime);
+
+    for (const result of results) {
+      const cycleInfo = cycleTimeMap.get(result.id);
+      if (cycleInfo?.firstActivatedDate) {
+        result.firstActivatedDate = cycleInfo.firstActivatedDate;
+      }
+    }
+  }
+
+  return results;
 }

@@ -1,10 +1,12 @@
 import { z } from "zod";
 import { AdoClient } from "../../ado-client.js";
 import { WorkItemSummary } from "../../types.js";
+import { getCycleTimeInfoBatch } from "../../utils/cycle-time.js";
 
 export const listWorkItemsSchema = z.object({
   query: z.string().describe("WIQL query string"),
   project: z.string().optional().describe("Project name, defaults to ADO_PROJECT env var"),
+  includeActivatedDate: z.boolean().optional().default(false).describe("Include firstActivatedDate from revision history (adds API calls)"),
 });
 
 export const listWorkItemsTool = {
@@ -21,6 +23,10 @@ export const listWorkItemsTool = {
         type: "string",
         description: "Project name, defaults to ADO_PROJECT env var",
       },
+      includeActivatedDate: {
+        type: "boolean",
+        description: "Include firstActivatedDate from revision history (default false, adds API calls)",
+      },
     },
     required: ["query"],
   },
@@ -28,7 +34,7 @@ export const listWorkItemsTool = {
 
 export async function listWorkItems(
   client: AdoClient,
-  params: z.infer<typeof listWorkItemsSchema>
+  params: z.input<typeof listWorkItemsSchema>
 ): Promise<WorkItemSummary[]> {
   const validatedParams = listWorkItemsSchema.parse(params);
   const project = client.resolveProject(validatedParams.project);
@@ -81,6 +87,23 @@ export async function listWorkItems(
             url: wi.url || "",
           });
         }
+      }
+    }
+  }
+
+  // Optionally fetch cycle time info
+  if (validatedParams.includeActivatedDate && results.length > 0) {
+    const workItemsForCycleTime = results.map((wi) => ({
+      id: wi.id,
+      state: wi.state,
+    }));
+
+    const cycleTimeMap = await getCycleTimeInfoBatch(client, workItemsForCycleTime);
+
+    for (const result of results) {
+      const cycleInfo = cycleTimeMap.get(result.id);
+      if (cycleInfo?.firstActivatedDate) {
+        result.firstActivatedDate = cycleInfo.firstActivatedDate;
       }
     }
   }
