@@ -192,7 +192,7 @@ For detailed HTTP API documentation, see [docs/HTTP_API.md](docs/HTTP_API.md).
 
 ## Implementation Status
 
-All 100 tools defined in the [full specification](azure-devops-mcp-spec.md) are now implemented.
+All tools are implemented, including type-specific work item tools beyond the original specification.
 
 | Category | Tools | Status |
 |----------|-------|--------|
