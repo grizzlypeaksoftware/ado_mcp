@@ -66,7 +66,7 @@ export const queryWorkItemsTool = {
 
 export async function queryWorkItems(
   client: AdoClient,
-  params: z.infer<typeof queryWorkItemsSchema>
+  params: z.input<typeof queryWorkItemsSchema>
 ): Promise<WorkItemSummary[]> {
   const validatedParams = queryWorkItemsSchema.parse(params);
   const project = client.resolveProject(validatedParams.project);
