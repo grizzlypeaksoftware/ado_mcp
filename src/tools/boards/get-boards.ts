@@ -8,7 +8,7 @@ export const getBoardsSchema = z.object({
 
 export const getBoardsTool = {
   name: "get_boards",
-  description: "List all boards in a project",
+  description: "List all Kanban/Agile boards for a team. Use this to get board names before querying board columns, swimlanes, or items. Returns board id, name, and URL.",
   inputSchema: {
     type: "object" as const,
     properties: {
