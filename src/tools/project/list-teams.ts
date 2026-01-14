@@ -7,7 +7,7 @@ export const listTeamsSchema = z.object({
 
 export const listTeamsTool = {
   name: "list_teams",
-  description: "List teams in a project",
+  description: "List Azure DevOps teams in a project. Teams are groups of people who work together; each team can have its own backlog, boards, and iterations. Use this to find team names before querying team-specific data.",
   inputSchema: {
     type: "object" as const,
     properties: {

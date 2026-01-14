@@ -12,7 +12,7 @@ export const getProjectSchema = z.object({
 
 export const getProjectTool = {
   name: "get_project",
-  description: "Get details for a specific project",
+  description: "Get detailed information about a specific Azure DevOps project including its state, visibility, default team, and optionally version control type and process template.",
   inputSchema: {
     type: "object" as const,
     properties: {

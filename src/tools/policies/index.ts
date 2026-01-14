@@ -16,7 +16,7 @@ const getBranchPolicySchema = z.object({
 // Tool definitions
 export const listBranchPoliciesTool = {
   name: "list_branch_policies",
-  description: "List branch policies for a repository",
+  description: "List branch protection policies for a Git repository (e.g., required reviewers, build validation, work item linking). These enforce rules on pull requests targeting specific branches.",
   inputSchema: {
     type: "object" as const,
     properties: {
@@ -30,7 +30,7 @@ export const listBranchPoliciesTool = {
 
 export const getBranchPolicyTool = {
   name: "get_branch_policy",
-  description: "Get details for a branch policy",
+  description: "Get detailed configuration of a specific branch policy including its settings, scope, and whether it's blocking. Requires a policy ID from list_branch_policies.",
   inputSchema: {
     type: "object" as const,
     properties: {

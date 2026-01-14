@@ -15,7 +15,7 @@ const getServiceConnectionSchema = z.object({
 // Tool definitions
 export const listServiceConnectionsTool = {
   name: "list_service_connections",
-  description: "List service connections/endpoints",
+  description: "List service connections (endpoints) that pipelines use to connect to external services like Azure, GitHub, Docker, etc. These store credentials for pipeline deployments.",
   inputSchema: {
     type: "object" as const,
     properties: {
@@ -28,7 +28,7 @@ export const listServiceConnectionsTool = {
 
 export const getServiceConnectionTool = {
   name: "get_service_connection",
-  description: "Get details for a service connection",
+  description: "Get detailed information about a specific service connection including its type and configuration. Requires a connection ID from list_service_connections.",
   inputSchema: {
     type: "object" as const,
     properties: {

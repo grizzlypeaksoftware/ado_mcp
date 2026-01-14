@@ -9,7 +9,7 @@ const listSubscriptionsSchema = z.object({
 // Tool definitions
 export const listSubscriptionsTool = {
   name: "list_subscriptions",
-  description: "List notification subscriptions",
+  description: "List email/notification subscriptions that send alerts when events occur in Azure DevOps (e.g., work item changes, build completions). NOT for listing teams or boards.",
   inputSchema: {
     type: "object" as const,
     properties: {

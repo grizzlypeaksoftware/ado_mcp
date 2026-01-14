@@ -9,7 +9,7 @@ export const getBoardColumnsSchema = z.object({
 
 export const getBoardColumnsTool = {
   name: "get_board_columns",
-  description: "Get columns for a specific board",
+  description: "Get the columns (e.g., 'New', 'Active', 'Resolved', 'Closed') configured on a Kanban board. Columns represent workflow stages. Requires a board name from get_boards.",
   inputSchema: {
     type: "object" as const,
     properties: {

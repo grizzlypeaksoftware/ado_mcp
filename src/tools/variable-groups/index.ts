@@ -15,7 +15,7 @@ const getVariableGroupSchema = z.object({
 // Tool definitions
 export const listVariableGroupsTool = {
   name: "list_variable_groups",
-  description: "List variable groups",
+  description: "List pipeline variable groups in a project. Variable groups store reusable variables (including secrets) that can be shared across multiple pipelines. NOT for listing Kanban boards or teams.",
   inputSchema: {
     type: "object" as const,
     properties: {
@@ -28,7 +28,7 @@ export const listVariableGroupsTool = {
 
 export const getVariableGroupTool = {
   name: "get_variable_group",
-  description: "Get details for a variable group",
+  description: "Get detailed information about a specific pipeline variable group, including all variables (secrets are masked). Requires a group ID from list_variable_groups.",
   inputSchema: {
     type: "object" as const,
     properties: {
