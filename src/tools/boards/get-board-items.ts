@@ -12,7 +12,7 @@ export const getBoardItemsSchema = z.object({
 
 export const getBoardItemsTool = {
   name: "get_board_items",
-  description: "Get all work items on a board",
+  description: "Get all work items displayed on a Kanban board. Requires a board name (use get_boards first to list available boards). Can filter by column or swimlane.",
   inputSchema: {
     type: "object" as const,
     properties: {

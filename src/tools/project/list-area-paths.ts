@@ -8,7 +8,7 @@ export const listAreaPathsSchema = z.object({
 
 export const listAreaPathsTool = {
   name: "list_area_paths",
-  description: "List area paths for a project",
+  description: "List area paths (work item categorization hierarchy) for a project. Area paths are used to organize work items by team or product area, NOT for listing Kanban boards.",
   inputSchema: {
     type: "object" as const,
     properties: {
