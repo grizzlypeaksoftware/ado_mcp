@@ -15,7 +15,7 @@ export const listEpicsSchema = z.object({
 
 export const listEpicsTool = {
   name: "list_epics",
-  description: "List Epic work items with optional filtering by state, assignee, area path, iteration, and tags. Returns all non-Removed epics by default.",
+  description: "List Epic work items in a project. Epics are the highest-level work items representing large initiatives or themes. Filter by state, assignee, area path, iteration, or tags. Returns ID, title, state, type, and assignee for each epic.",
   inputSchema: {
     type: "object" as const,
     properties: {

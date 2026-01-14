@@ -14,7 +14,7 @@ export const listCommitsSchema = z.object({
 
 export const listCommitsTool = {
   name: "list_commits",
-  description: "List commits in a repository",
+  description: "List commit history for a repository or branch. Returns commit ID, message, author, and date for each commit. Filter by branch, author email, or date range. Use this to review recent changes, find specific commits, or audit code history.",
   inputSchema: {
     type: "object" as const,
     properties: {

@@ -8,7 +8,7 @@ export const listRepositoriesSchema = z.object({
 
 export const listRepositoriesTool = {
   name: "list_repositories",
-  description: "List all Git repositories in a project",
+  description: "List all Git repositories in an Azure DevOps project. Returns repository ID, name, clone URL, and default branch for each repo. Use this to discover available repositories before performing git operations like listing branches or files.",
   inputSchema: {
     type: "object" as const,
     properties: {

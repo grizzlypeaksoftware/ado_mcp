@@ -12,7 +12,7 @@ export const createBranchSchema = z.object({
 
 export const createBranchTool = {
   name: "create_branch",
-  description: "Create a new branch",
+  description: "Create a new Git branch in a repository. By default, branches from the default branch (main/master), or specify a source branch or commit SHA. Use this to start new feature work, create release branches, or prepare for pull requests.",
   inputSchema: {
     type: "object" as const,
     properties: {

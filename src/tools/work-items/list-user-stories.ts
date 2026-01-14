@@ -15,7 +15,7 @@ export const listUserStoriesSchema = z.object({
 
 export const listUserStoriesTool = {
   name: "list_user_stories",
-  description: "List User Story work items with optional filtering by state, assignee, area path, iteration, and tags. Returns all non-Removed user stories by default.",
+  description: "List User Story work items in a project. User Stories describe functionality from the user's perspective, typically broken into Tasks. Filter by state, assignee, area path, iteration, or tags. Returns ID, title, state, type, and assignee.",
   inputSchema: {
     type: "object" as const,
     properties: {

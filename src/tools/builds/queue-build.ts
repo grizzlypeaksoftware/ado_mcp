@@ -11,7 +11,7 @@ export const queueBuildSchema = z.object({
 
 export const queueBuildTool = {
   name: "queue_build",
-  description: "Queue a new build",
+  description: "Queue (trigger) a new build from a classic build definition. Optionally specify a branch and pass build parameters. Returns the queued build ID and number. For YAML pipelines, use run_pipeline instead.",
   inputSchema: {
     type: "object" as const,
     properties: {

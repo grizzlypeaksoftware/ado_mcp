@@ -12,7 +12,7 @@ export const addPullRequestReviewerSchema = z.object({
 
 export const addPullRequestReviewerTool = {
   name: "add_pull_request_reviewer",
-  description: "Add a reviewer to a pull request",
+  description: "Add a reviewer to a pull request by email or user ID. Can mark as required reviewer whose approval is mandatory for completion. Use this to request code review from specific team members.",
   inputSchema: {
     type: "object" as const,
     properties: {

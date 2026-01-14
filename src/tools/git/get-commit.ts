@@ -12,7 +12,7 @@ export const getCommitSchema = z.object({
 
 export const getCommitTool = {
   name: "get_commit",
-  description: "Get details for a specific commit",
+  description: "Get detailed information about a specific commit by SHA. Returns commit message, author/committer info, and optionally the list of files changed (added, edited, deleted). Use this to inspect what changes were made in a particular commit.",
   inputSchema: {
     type: "object" as const,
     properties: {

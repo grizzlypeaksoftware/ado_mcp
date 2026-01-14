@@ -8,7 +8,7 @@ export const deleteWorkItemSchema = z.object({
 
 export const deleteWorkItemTool = {
   name: "delete_work_item",
-  description: "Delete or recycle a work item",
+  description: "Delete a work item by ID. By default, moves the work item to the recycle bin where it can be restored. Set permanent=true to permanently destroy the work item (cannot be undone).",
   inputSchema: {
     type: "object" as const,
     properties: {

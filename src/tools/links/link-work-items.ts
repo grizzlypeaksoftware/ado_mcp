@@ -34,7 +34,7 @@ export const linkWorkItemsSchema = z.object({
 
 export const linkWorkItemsTool = {
   name: "link_work_items",
-  description: "Create a link between two work items",
+  description: "Create a link between two work items. Supports link types: parent/child (hierarchy), related, predecessor/successor (dependencies), duplicate/duplicate-of, tests/tested-by. Use this to establish relationships like 'User Story is parent of Task' or 'Bug blocks Feature'.",
   inputSchema: {
     type: "object" as const,
     properties: {

@@ -33,7 +33,7 @@ export const removeWorkItemLinkSchema = z.object({
 
 export const removeWorkItemLinkTool = {
   name: "remove_work_item_link",
-  description: "Remove a link between work items",
+  description: "Remove an existing link between two work items. Specify the source and target work item IDs and the link type to remove. Use this to break relationships that are no longer valid, like removing a child from a parent.",
   inputSchema: {
     type: "object" as const,
     properties: {

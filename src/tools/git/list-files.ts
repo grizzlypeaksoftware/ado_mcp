@@ -12,7 +12,7 @@ export const listFilesSchema = z.object({
 
 export const listFilesTool = {
   name: "list_files",
-  description: "List files and folders in a repository path",
+  description: "List files and folders in a Git repository at a specified path. Returns file/folder names, paths, and sizes. Can list recursively to show entire directory tree. Use this to explore repository structure or find files before reading their content.",
   inputSchema: {
     type: "object" as const,
     properties: {

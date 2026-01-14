@@ -10,7 +10,7 @@ export const getPullRequestCommentsSchema = z.object({
 
 export const getPullRequestCommentsTool = {
   name: "get_pull_request_comments",
-  description: "Get all comments/threads on a pull request",
+  description: "Retrieve all comment threads and replies on a pull request. Returns thread status, file path and line number for inline comments, comment content, author, and date. Use this to review feedback, check for unresolved comments, or see discussion history.",
   inputSchema: {
     type: "object" as const,
     properties: {

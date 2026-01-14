@@ -8,7 +8,7 @@ export const listBuildDefinitionsSchema = z.object({
 
 export const listBuildDefinitionsTool = {
   name: "list_build_definitions",
-  description: "List classic build definitions",
+  description: "List classic build definitions (non-YAML pipelines) in a project. For YAML pipelines, use list_pipelines instead. Returns definition ID, name, folder path, and queue status. Filter by folder path to find definitions in a specific location.",
   inputSchema: {
     type: "object" as const,
     properties: {

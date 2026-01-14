@@ -18,7 +18,7 @@ export const createWorkItemSchema = z.object({
 
 export const createWorkItemTool = {
   name: "create_work_item",
-  description: "Create a new work item",
+  description: "Create a new Azure DevOps work item (Bug, Task, User Story, Epic, Feature, etc.). Supports setting title, description, assignee, area/iteration paths, priority, tags, and custom fields. Can optionally link to a parent work item on creation.",
   inputSchema: {
     type: "object" as const,
     properties: {

@@ -18,7 +18,7 @@ export const addPullRequestCommentSchema = z.object({
 
 export const addPullRequestCommentTool = {
   name: "add_pull_request_comment",
-  description: "Add a comment to a pull request",
+  description: "Add a comment or code review feedback to a pull request. Can create general comments, reply to existing threads, or add inline comments on specific files and lines. Supports markdown formatting and thread status (active/fixed/wontFix/closed/pending).",
   inputSchema: {
     type: "object" as const,
     properties: {

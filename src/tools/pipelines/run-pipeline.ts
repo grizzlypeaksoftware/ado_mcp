@@ -13,7 +13,7 @@ export const runPipelineSchema = z.object({
 
 export const runPipelineTool = {
   name: "run_pipeline",
-  description: "Trigger a new pipeline run",
+  description: "Trigger a new pipeline run (build). Can specify branch, set runtime variables, pass template parameters, or skip specific stages. Returns the queued build ID and number. Use this to manually kick off CI/CD pipelines.",
   inputSchema: {
     type: "object" as const,
     properties: {

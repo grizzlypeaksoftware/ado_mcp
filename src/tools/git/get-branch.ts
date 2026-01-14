@@ -9,7 +9,7 @@ export const getBranchSchema = z.object({
 
 export const getBranchTool = {
   name: "get_branch",
-  description: "Get details for a specific branch",
+  description: "Get detailed information about a specific branch including its latest commit (message, author, date), ahead/behind counts relative to the default branch, and creator. Use this to check branch status before merging or to see recent activity on a branch.",
   inputSchema: {
     type: "object" as const,
     properties: {

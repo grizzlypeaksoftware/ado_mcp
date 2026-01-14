@@ -9,7 +9,7 @@ export const getReleaseLogsSchema = z.object({
 
 export const getReleaseLogsTool = {
   name: "get_release_logs",
-  description: "Get logs for a release deployment",
+  description: "Get log URLs for tasks executed during a release environment deployment. Returns task names and their log URLs which can be fetched for detailed output. Use this to troubleshoot failed deployments or audit what happened during a release.",
   inputSchema: {
     type: "object" as const,
     properties: {

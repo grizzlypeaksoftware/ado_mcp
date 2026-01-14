@@ -13,7 +13,7 @@ export const addWorkItemAttachmentSchema = z.object({
 
 export const addWorkItemAttachmentTool = {
   name: "add_work_item_attachment",
-  description: "Add an attachment to a work item",
+  description: "Upload a local file and attach it to a work item. Supports any file type (images, documents, logs, etc.). Optionally override the filename and add a comment. Returns the attachment URL and size.",
   inputSchema: {
     type: "object" as const,
     properties: {

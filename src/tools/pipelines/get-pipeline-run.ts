@@ -11,7 +11,7 @@ export const getPipelineRunSchema = z.object({
 
 export const getPipelineRunTool = {
   name: "get_pipeline_run",
-  description: "Get details for a specific pipeline run",
+  description: "Get detailed information about a specific pipeline run by ID. Returns status, result, timing, source info, trigger reason, and the full timeline of stages/jobs/tasks with their individual results. Use this to investigate build failures or check progress.",
   inputSchema: {
     type: "object" as const,
     properties: {

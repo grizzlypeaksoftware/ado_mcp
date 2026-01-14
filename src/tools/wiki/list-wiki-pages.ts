@@ -10,7 +10,7 @@ export const listWikiPagesSchema = z.object({
 
 export const listWikiPagesTool = {
   name: "list_wiki_pages",
-  description: "List pages in a wiki",
+  description: "List wiki pages in a wiki. Can start from a specific path and list recursively or just immediate children. Returns page paths and metadata. Note: This tool returns REST API guidance as the Wiki Pages API requires direct calls.",
   inputSchema: {
     type: "object" as const,
     properties: {

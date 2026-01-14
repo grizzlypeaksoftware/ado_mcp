@@ -15,7 +15,7 @@ export const listBugsSchema = z.object({
 
 export const listBugsTool = {
   name: "list_bugs",
-  description: "List Bug work items with optional filtering by state, assignee, area path, iteration, and tags. Returns all non-Removed bugs by default.",
+  description: "List Bug work items in a project. Bugs track defects, errors, or issues that need to be fixed. Filter by state, assignee, area path, iteration, or tags. Returns ID, title, state, type, and assignee for each bug.",
   inputSchema: {
     type: "object" as const,
     properties: {

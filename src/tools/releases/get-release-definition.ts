@@ -8,7 +8,7 @@ export const getReleaseDefinitionSchema = z.object({
 
 export const getReleaseDefinitionTool = {
   name: "get_release_definition",
-  description: "Get details for a release definition",
+  description: "Get detailed configuration for a release definition. Returns environments (deployment stages) with their conditions, artifacts (build sources), and triggers (CI/scheduled). Use this to understand the release pipeline structure before creating releases.",
   inputSchema: {
     type: "object" as const,
     properties: {

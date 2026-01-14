@@ -9,7 +9,7 @@ export const listWorkItemsSchema = z.object({
 
 export const listWorkItemsTool = {
   name: "list_work_items",
-  description: "Query work items using WIQL (Work Item Query Language)",
+  description: "Execute a raw WIQL (Work Item Query Language) query to retrieve work items. Use this for advanced queries with custom SQL-like syntax. For simpler filtering, prefer query_work_items or search_work_items instead. Returns work item ID, title, state, type, assignee, and URL.",
   inputSchema: {
     type: "object" as const,
     properties: {

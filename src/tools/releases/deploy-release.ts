@@ -11,7 +11,7 @@ export const deployReleaseSchema = z.object({
 
 export const deployReleaseTool = {
   name: "deploy_release",
-  description: "Deploy a release to an environment",
+  description: "Trigger deployment of a release to a specific environment (stage). Requires release ID and environment ID (from get_release). Optionally add a deployment comment. Use this to manually deploy to environments or redeploy after failures.",
   inputSchema: {
     type: "object" as const,
     properties: {

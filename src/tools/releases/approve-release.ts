@@ -12,7 +12,7 @@ export const approveReleaseSchema = z.object({
 
 export const approveReleaseTool = {
   name: "approve_release",
-  description: "Approve a pending release deployment",
+  description: "Approve or reject a pending deployment approval. Get the approval ID from get_release_environment's preDeployApprovals or postDeployApprovals. Optionally add a comment explaining the decision. Use this to gate deployments requiring manual approval.",
   inputSchema: {
     type: "object" as const,
     properties: {

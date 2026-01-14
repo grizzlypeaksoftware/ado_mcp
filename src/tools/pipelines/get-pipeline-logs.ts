@@ -10,7 +10,7 @@ export const getPipelineLogsSchema = z.object({
 
 export const getPipelineLogsTool = {
   name: "get_pipeline_logs",
-  description: "Get logs for a pipeline run",
+  description: "Retrieve console output logs from a pipeline run. Get all logs or specify a logId for a specific task's output. Use this to troubleshoot failed builds, review test output, or audit what commands were executed.",
   inputSchema: {
     type: "object" as const,
     properties: {

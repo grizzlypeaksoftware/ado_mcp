@@ -10,7 +10,7 @@ export const deleteWikiPageSchema = z.object({
 
 export const deleteWikiPageTool = {
   name: "delete_wiki_page",
-  description: "Delete a wiki page",
+  description: "Delete a wiki page at the specified path. Child pages are NOT automatically deleted. Optionally include a commit comment for the deletion. Note: This tool returns REST API guidance as the Wiki Pages API requires direct calls.",
   inputSchema: {
     type: "object" as const,
     properties: {

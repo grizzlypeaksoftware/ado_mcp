@@ -12,7 +12,7 @@ export const getPullRequestSchema = z.object({
 
 export const getPullRequestTool = {
   name: "get_pull_request",
-  description: "Get details for a specific pull request",
+  description: "Get complete details for a pull request by ID. Returns title, description, status, reviewers with vote status, merge status, commits included, and linked work items. Use this to review PR details, check approval status, or see what changes are included.",
   inputSchema: {
     type: "object" as const,
     properties: {

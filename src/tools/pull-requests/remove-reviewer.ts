@@ -10,7 +10,7 @@ export const removePullRequestReviewerSchema = z.object({
 
 export const removePullRequestReviewerTool = {
   name: "remove_pull_request_reviewer",
-  description: "Remove a reviewer from a pull request",
+  description: "Remove a reviewer from a pull request by email or user ID. Use this to remove reviewers who are unavailable or no longer needed for the review process.",
   inputSchema: {
     type: "object" as const,
     properties: {

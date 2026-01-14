@@ -9,7 +9,7 @@ export const searchUsersSchema = z.object({
 
 export const searchUsersTool = {
   name: "search_users",
-  description: "Search for users in the organization",
+  description: "Search for users in the organization by name or email. Note: This tool returns REST API guidance as user search requires the Azure DevOps Graph API, which isn't available in the standard SDK.",
   inputSchema: {
     type: "object" as const,
     properties: {

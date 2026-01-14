@@ -10,7 +10,7 @@ export const cancelPipelineRunSchema = z.object({
 
 export const cancelPipelineRunTool = {
   name: "cancel_pipeline_run",
-  description: "Cancel a running pipeline",
+  description: "Cancel an in-progress pipeline run. The run will transition to 'cancelling' status and then 'canceled' once all active tasks stop. Use this to abort builds that are no longer needed or are stuck.",
   inputSchema: {
     type: "object" as const,
     properties: {

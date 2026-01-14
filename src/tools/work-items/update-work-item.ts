@@ -17,7 +17,7 @@ export const updateWorkItemSchema = z.object({
 
 export const updateWorkItemTool = {
   name: "update_work_item",
-  description: "Update an existing work item",
+  description: "Update fields on an existing work item by ID. Can modify title, description, state, assignee, area/iteration paths, priority, tags, and custom fields. Use this to change work item status, reassign work, or update details.",
   inputSchema: {
     type: "object" as const,
     properties: {

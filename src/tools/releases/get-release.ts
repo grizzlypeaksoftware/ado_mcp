@@ -9,7 +9,7 @@ export const getReleaseSchema = z.object({
 
 export const getReleaseTool = {
   name: "get_release",
-  description: "Get details for a specific release",
+  description: "Get detailed information about a specific release by ID. Returns status, environments with deployment steps and attempts, artifact versions used, and timing info. Use this to inspect deployment progress, check which environments succeeded/failed, or audit what was deployed.",
   inputSchema: {
     type: "object" as const,
     properties: {

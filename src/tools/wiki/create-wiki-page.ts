@@ -11,7 +11,7 @@ export const createWikiPageSchema = z.object({
 
 export const createWikiPageTool = {
   name: "create_wiki_page",
-  description: "Create a new wiki page",
+  description: "Create a new wiki page at the specified path with Markdown content. Parent pages are created automatically if needed. Optionally include a commit comment. Note: This tool returns REST API guidance as the Wiki Pages API requires direct calls.",
   inputSchema: {
     type: "object" as const,
     properties: {

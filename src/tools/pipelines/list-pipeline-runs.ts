@@ -19,7 +19,7 @@ export const listPipelineRunsSchema = z.object({
 
 export const listPipelineRunsTool = {
   name: "list_pipeline_runs",
-  description: "List runs for a pipeline",
+  description: "List recent runs (builds) for a specific pipeline. Filter by branch, status (inProgress/completed/etc.), or result (succeeded/failed/canceled). Returns run ID, build number, status, result, branch, timing, and who triggered it.",
   inputSchema: {
     type: "object" as const,
     properties: {

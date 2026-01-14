@@ -8,7 +8,7 @@ export const getPipelineSchema = z.object({
 
 export const getPipelineTool = {
   name: "get_pipeline",
-  description: "Get details for a specific pipeline",
+  description: "Get detailed configuration for a pipeline by ID. Returns pipeline name, folder, repository info, default branch, YAML filename (for YAML pipelines), and agent queue. Use this to understand pipeline setup before triggering runs.",
   inputSchema: {
     type: "object" as const,
     properties: {

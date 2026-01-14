@@ -10,7 +10,7 @@ export const getReleaseEnvironmentSchema = z.object({
 
 export const getReleaseEnvironmentTool = {
   name: "get_release_environment",
-  description: "Get details for a release environment",
+  description: "Get detailed status of a specific environment (stage) within a release. Returns deployment steps with phases/tasks, pre and post-deployment approval status, and approvers. Use this to check deployment progress, see pending approvals, or investigate deployment failures.",
   inputSchema: {
     type: "object" as const,
     properties: {

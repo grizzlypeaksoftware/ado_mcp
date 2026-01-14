@@ -13,7 +13,7 @@ export const searchWorkItemsSchema = z.object({
 
 export const searchWorkItemsTool = {
   name: "search_work_items",
-  description: "Simple keyword search for work items (wraps WIQL for convenience)",
+  description: "Search for work items by keyword text in title and description. Use this when you need to find work items containing specific words or phrases. Supports optional filters for work item type, state, and assignee. For filtering without search text, use query_work_items instead.",
   inputSchema: {
     type: "object" as const,
     properties: {

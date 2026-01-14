@@ -15,7 +15,7 @@ export const listFeaturesSchema = z.object({
 
 export const listFeaturesTool = {
   name: "list_features",
-  description: "List Feature work items with optional filtering by state, assignee, area path, iteration, and tags. Returns all non-Removed features by default.",
+  description: "List Feature work items in a project. Features represent shippable functionality that delivers value, typically grouped under Epics and containing User Stories. Filter by state, assignee, area path, iteration, or tags. Returns ID, title, state, type, and assignee.",
   inputSchema: {
     type: "object" as const,
     properties: {

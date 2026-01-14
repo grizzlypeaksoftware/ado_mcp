@@ -7,7 +7,7 @@ export const listWikisSchema = z.object({
 
 export const listWikisTool = {
   name: "list_wikis",
-  description: "List all wikis in a project",
+  description: "List all wikis in a project. Azure DevOps supports project wikis (managed by ADO) and code wikis (published from Git repos). Returns wiki ID, name, and type. Use this to discover wikis before accessing their pages.",
   inputSchema: {
     type: "object" as const,
     properties: {

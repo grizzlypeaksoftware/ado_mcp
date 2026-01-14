@@ -9,7 +9,7 @@ export const getBuildSchema = z.object({
 
 export const getBuildTool = {
   name: "get_build",
-  description: "Get details for a specific build",
+  description: "Get detailed information about a specific build by ID. Returns status, result, source info (branch, commit), timing, trigger reason, priority, repository details, and log references. Use this to inspect build details or find logs for troubleshooting.",
   inputSchema: {
     type: "object" as const,
     properties: {

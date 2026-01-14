@@ -11,7 +11,7 @@ export const getWorkItemSchema = z.object({
 
 export const getWorkItemTool = {
   name: "get_work_item",
-  description: "Fetch a single work item with full details including fields, comments, relations, and attachments",
+  description: "Get complete details for a single work item by ID. Returns all fields (title, description, state, assignee, dates, etc.), comments/discussion history, linked work items (parent/child/related), and file attachments. Use this when you need full information about a specific work item.",
   inputSchema: {
     type: "object" as const,
     properties: {

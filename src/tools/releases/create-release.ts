@@ -21,7 +21,7 @@ export const createReleaseSchema = z.object({
 
 export const createReleaseTool = {
   name: "create_release",
-  description: "Create a new release",
+  description: "Create a new release from a release definition. Optionally specify artifact versions, set as draft, or pass release variables. The release can then be deployed to environments manually or automatically based on triggers. Returns the created release ID and name.",
   inputSchema: {
     type: "object" as const,
     properties: {

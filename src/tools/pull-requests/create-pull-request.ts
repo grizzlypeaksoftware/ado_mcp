@@ -18,7 +18,7 @@ export const createPullRequestSchema = z.object({
 
 export const createPullRequestTool = {
   name: "create_pull_request",
-  description: "Create a new pull request",
+  description: "Create a new pull request to merge changes from a source branch to a target branch. Supports markdown description, adding reviewers, linking work items, creating as draft, and enabling auto-complete. Use this to submit code changes for review.",
   inputSchema: {
     type: "object" as const,
     properties: {

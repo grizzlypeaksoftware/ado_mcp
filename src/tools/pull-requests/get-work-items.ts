@@ -10,7 +10,7 @@ export const getPullRequestWorkItemsSchema = z.object({
 
 export const getPullRequestWorkItemsTool = {
   name: "get_pull_request_work_items",
-  description: "Get work items linked to a pull request",
+  description: "Get all work items (bugs, tasks, user stories, etc.) linked to a pull request. Returns work item ID, title, state, type, and assignee. Use this to see which requirements or bugs a PR addresses for traceability.",
   inputSchema: {
     type: "object" as const,
     properties: {

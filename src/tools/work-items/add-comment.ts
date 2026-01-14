@@ -8,7 +8,7 @@ export const addWorkItemCommentSchema = z.object({
 
 export const addWorkItemCommentTool = {
   name: "add_work_item_comment",
-  description: "Add a comment to a work item",
+  description: "Add a discussion comment to a work item. Comments appear in the work item's Discussion section and support HTML formatting. Use this to add notes, questions, or updates to a work item's conversation thread.",
   inputSchema: {
     type: "object" as const,
     properties: {

@@ -15,7 +15,7 @@ export const listTasksSchema = z.object({
 
 export const listTasksTool = {
   name: "list_tasks",
-  description: "List Task work items with optional filtering by state, assignee, area path, iteration, and tags. Returns all non-Removed tasks by default.",
+  description: "List Task work items in a project. Tasks are the smallest work units representing specific work to be done, usually under User Stories. Filter by state, assignee, area path, iteration, or tags. Returns ID, title, state, type, and assignee.",
   inputSchema: {
     type: "object" as const,
     properties: {

@@ -10,7 +10,7 @@ export const linkPullRequestWorkItemSchema = z.object({
 
 export const linkPullRequestWorkItemTool = {
   name: "link_pull_request_work_item",
-  description: "Link a work item to a pull request",
+  description: "Link an existing work item to a pull request to establish traceability between code changes and requirements/bugs. Creates an artifact link on the work item pointing to the PR. Use this to associate code changes with the work item they implement or fix.",
   inputSchema: {
     type: "object" as const,
     properties: {

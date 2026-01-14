@@ -17,7 +17,7 @@ export const completePullRequestSchema = z.object({
 
 export const completePullRequestTool = {
   name: "complete_pull_request",
-  description: "Complete (merge) a pull request",
+  description: "Complete (merge) an approved pull request into the target branch. Choose merge strategy (merge commit, squash, rebase). Optionally delete source branch after merge and provide custom commit message. Requires all policies to pass unless bypassing.",
   inputSchema: {
     type: "object" as const,
     properties: {

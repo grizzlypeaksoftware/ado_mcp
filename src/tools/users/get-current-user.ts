@@ -6,7 +6,7 @@ export const getCurrentUserSchema = z.object({});
 
 export const getCurrentUserTool = {
   name: "get_current_user",
-  description: "Get the authenticated user's details",
+  description: "Get information about the currently authenticated user (the PAT owner). Returns user ID, display name, email, and active status. Use this to verify authentication or get the current user's identity for filtering.",
   inputSchema: {
     type: "object" as const,
     properties: {},

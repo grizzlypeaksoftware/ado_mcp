@@ -9,7 +9,7 @@ export const listReleaseDefinitionsSchema = z.object({
 
 export const listReleaseDefinitionsTool = {
   name: "list_release_definitions",
-  description: "List release definitions",
+  description: "List classic release pipelines (release definitions) in a project. These define deployment stages/environments and artifacts. Filter by name or folder path. Returns definition ID, name, path, and creator info. For YAML multi-stage pipelines, use list_pipelines instead.",
   inputSchema: {
     type: "object" as const,
     properties: {

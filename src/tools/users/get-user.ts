@@ -8,7 +8,7 @@ export const getUserSchema = z.object({
 
 export const getUserTool = {
   name: "get_user",
-  description: "Get details for a user",
+  description: "Get detailed information about a specific user by ID or email. Note: This tool returns REST API guidance as direct user lookup requires the Azure DevOps Graph API, which isn't available in the standard SDK.",
   inputSchema: {
     type: "object" as const,
     properties: {

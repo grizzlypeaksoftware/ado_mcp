@@ -9,7 +9,7 @@ export const deleteBranchSchema = z.object({
 
 export const deleteBranchTool = {
   name: "delete_branch",
-  description: "Delete a branch",
+  description: "Delete a Git branch from a repository. Use this to clean up merged feature branches or remove obsolete branches. Cannot delete the default branch or branches with open pull requests targeting them.",
   inputSchema: {
     type: "object" as const,
     properties: {

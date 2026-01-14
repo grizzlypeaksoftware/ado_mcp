@@ -11,7 +11,7 @@ export const addWorkItemAttachmentFromUrlSchema = z.object({
 
 export const addWorkItemAttachmentFromUrlTool = {
   name: "add_work_item_attachment_from_url",
-  description: "Attach a file from a URL to a work item",
+  description: "Download a file from a URL and attach it to a work item. Useful for attaching screenshots, logs, or documents from web sources. Specify a filename for the attachment and optionally add a comment.",
   inputSchema: {
     type: "object" as const,
     properties: {

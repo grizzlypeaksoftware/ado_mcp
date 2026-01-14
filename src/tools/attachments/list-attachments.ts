@@ -8,7 +8,7 @@ export const listWorkItemAttachmentsSchema = z.object({
 
 export const listWorkItemAttachmentsTool = {
   name: "list_work_item_attachments",
-  description: "List all attachments on a work item",
+  description: "List all file attachments on a work item. Returns attachment ID, filename, URL, size, and upload date for each attachment. Use this to see what files are attached before downloading or removing them.",
   inputSchema: {
     type: "object" as const,
     properties: {

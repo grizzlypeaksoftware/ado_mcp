@@ -8,7 +8,7 @@ export const listPipelinesSchema = z.object({
 
 export const listPipelinesTool = {
   name: "list_pipelines",
-  description: "List all pipelines in a project",
+  description: "List all CI/CD pipelines (YAML and classic build definitions) in a project. Returns pipeline ID, name, and folder path. Filter by folder to find pipelines in a specific directory. Use this to discover pipelines before running or viewing their runs.",
   inputSchema: {
     type: "object" as const,
     properties: {

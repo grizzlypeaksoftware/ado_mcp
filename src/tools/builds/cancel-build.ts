@@ -9,7 +9,7 @@ export const cancelBuildSchema = z.object({
 
 export const cancelBuildTool = {
   name: "cancel_build",
-  description: "Cancel a running build",
+  description: "Cancel an in-progress build. The build will transition to 'cancelling' status and then 'canceled' once all active tasks stop. Use this to abort builds that are no longer needed or are stuck.",
   inputSchema: {
     type: "object" as const,
     properties: {

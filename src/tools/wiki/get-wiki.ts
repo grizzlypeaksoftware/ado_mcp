@@ -8,7 +8,7 @@ export const getWikiSchema = z.object({
 
 export const getWikiTool = {
   name: "get_wiki",
-  description: "Get details for a specific wiki",
+  description: "Get detailed information about a specific wiki by ID or name. Returns wiki type (project/code), and for code wikis: the backing repository ID, mapped path, and version. Use this to understand wiki configuration.",
   inputSchema: {
     type: "object" as const,
     properties: {

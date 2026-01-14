@@ -9,7 +9,7 @@ export const getRepositorySchema = z.object({
 
 export const getRepositoryTool = {
   name: "get_repository",
-  description: "Get details for a specific repository",
+  description: "Get detailed information about a specific Git repository by name or ID. Returns repository metadata including clone URLs (HTTPS and SSH), default branch, size, and web URL. Use this to get repository details needed for cloning or linking.",
   inputSchema: {
     type: "object" as const,
     properties: {

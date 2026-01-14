@@ -20,7 +20,7 @@ export const listBuildsSchema = z.object({
 
 export const listBuildsTool = {
   name: "list_builds",
-  description: "List builds",
+  description: "List recent builds across all definitions or for a specific definition. Filter by branch, status (inProgress/completed/etc.), result (succeeded/failed/canceled), or who requested it. Returns build ID, number, status, result, timing, and requester info.",
   inputSchema: {
     type: "object" as const,
     properties: {

@@ -12,7 +12,7 @@ export const listReleasesSchema = z.object({
 
 export const listReleasesTool = {
   name: "list_releases",
-  description: "List releases",
+  description: "List releases (deployments) created from release definitions. Filter by definition, status (draft/active/abandoned), or environment status. Returns release ID, name, status, and environment deployment states. Use this to track deployment history or find releases to deploy.",
   inputSchema: {
     type: "object" as const,
     properties: {

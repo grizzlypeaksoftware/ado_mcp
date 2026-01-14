@@ -8,7 +8,7 @@ export const removeWorkItemAttachmentSchema = z.object({
 
 export const removeWorkItemAttachmentTool = {
   name: "remove_work_item_attachment",
-  description: "Remove an attachment from a work item",
+  description: "Remove a file attachment from a work item. Get the attachment ID from list_work_item_attachments first. The attachment file is unlinked from the work item but may remain in Azure storage.",
   inputSchema: {
     type: "object" as const,
     properties: {

@@ -45,7 +45,7 @@ export const getLinkedWorkItemsSchema = z.object({
 
 export const getLinkedWorkItemsTool = {
   name: "get_linked_work_items",
-  description: "Get all work items linked to a specific item",
+  description: "Get all work items linked to a specific work item. Optionally filter by link type (parent, child, related, etc.). Returns linked item ID, title, state, type, and the link relationship. Use this to find a work item's parent, children, or related items.",
   inputSchema: {
     type: "object" as const,
     properties: {

@@ -45,7 +45,7 @@ const listTestRunsSchema = z.object({
 // Tool definitions
 export const listTestPlansTool = {
   name: "list_test_plans",
-  description: "List test plans in a project",
+  description: "List test plans in a project. Test plans are containers for organizing test suites and test cases. Filter by owner or include full details. Note: This tool returns REST API guidance as the Test Plans API requires direct calls.",
   inputSchema: {
     type: "object" as const,
     properties: {
@@ -59,7 +59,7 @@ export const listTestPlansTool = {
 
 export const getTestPlanTool = {
   name: "get_test_plan",
-  description: "Get details for a test plan",
+  description: "Get detailed information about a specific test plan including its area path, iteration, and test suites. Requires a plan ID from list_test_plans. Note: This tool returns REST API guidance.",
   inputSchema: {
     type: "object" as const,
     properties: {
@@ -72,7 +72,7 @@ export const getTestPlanTool = {
 
 export const listTestSuitesTool = {
   name: "list_test_suites",
-  description: "List test suites in a plan",
+  description: "List test suites within a test plan. Test suites are folders that organize test cases hierarchically. Requires a plan ID. Note: This tool returns REST API guidance as the Test Plans API requires direct calls.",
   inputSchema: {
     type: "object" as const,
     properties: {
@@ -85,7 +85,7 @@ export const listTestSuitesTool = {
 
 export const getTestSuiteTool = {
   name: "get_test_suite",
-  description: "Get details for a test suite",
+  description: "Get detailed information about a specific test suite including its type (static, query-based, or requirement-based) and parent suite. Requires plan ID and suite ID. Note: This tool returns REST API guidance.",
   inputSchema: {
     type: "object" as const,
     properties: {
@@ -99,7 +99,7 @@ export const getTestSuiteTool = {
 
 export const listTestCasesTool = {
   name: "list_test_cases",
-  description: "List test cases in a suite",
+  description: "List test cases within a test suite. Test cases are work items defining the steps to verify a feature. Requires plan ID and suite ID. Note: This tool returns REST API guidance as the Test Plans API requires direct calls.",
   inputSchema: {
     type: "object" as const,
     properties: {
@@ -113,7 +113,7 @@ export const listTestCasesTool = {
 
 export const getTestResultsTool = {
   name: "get_test_results",
-  description: "Get test results for a run",
+  description: "Get test results from a test run, showing pass/fail status, duration, error messages, and stack traces for each test case. Requires a run ID from list_test_runs. Use this to analyze test failures.",
   inputSchema: {
     type: "object" as const,
     properties: {
@@ -126,7 +126,7 @@ export const getTestResultsTool = {
 
 export const listTestRunsTool = {
   name: "list_test_runs",
-  description: "List test runs",
+  description: "List test runs (test execution records) in a project. Filter by plan or state (notStarted/inProgress/completed/aborted). Returns run name, total/passed/failed counts, and timing. Use this to track testing progress.",
   inputSchema: {
     type: "object" as const,
     properties: {

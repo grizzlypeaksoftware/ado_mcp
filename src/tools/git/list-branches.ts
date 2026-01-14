@@ -10,7 +10,7 @@ export const listBranchesSchema = z.object({
 
 export const listBranchesTool = {
   name: "list_branches",
-  description: "List branches in a repository",
+  description: "List all branches in a Git repository. Returns branch name, latest commit ID, creator, and ahead/behind counts relative to the default branch. Optionally filter by branch name prefix. Use this to see available branches before checking out or creating PRs.",
   inputSchema: {
     type: "object" as const,
     properties: {

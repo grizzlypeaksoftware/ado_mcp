@@ -11,7 +11,7 @@ export const getWikiPageSchema = z.object({
 
 export const getWikiPageTool = {
   name: "get_wiki_page",
-  description: "Get a wiki page",
+  description: "Get a wiki page's content and metadata by path. Optionally fetch a specific version or exclude content. Wiki pages are written in Markdown. Note: This tool returns REST API guidance as the Wiki Pages API requires direct calls.",
   inputSchema: {
     type: "object" as const,
     properties: {

@@ -18,7 +18,7 @@ export const listPullRequestsSchema = z.object({
 
 export const listPullRequestsTool = {
   name: "list_pull_requests",
-  description: "List pull requests in a repository",
+  description: "List pull requests in a Git repository. Filter by status (active/completed/abandoned), creator, reviewer, source branch, or target branch. Returns PR ID, title, status, creator, branches, and draft status. Use this to find PRs awaiting review or track PR history.",
   inputSchema: {
     type: "object" as const,
     properties: {

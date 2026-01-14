@@ -12,7 +12,7 @@ export const updateWikiPageSchema = z.object({
 
 export const updateWikiPageTool = {
   name: "update_wiki_page",
-  description: "Update a wiki page",
+  description: "Update an existing wiki page's Markdown content. Requires the page's current ETag version for optimistic concurrency. Optionally include a commit comment. Note: This tool returns REST API guidance as the Wiki Pages API requires direct calls.",
   inputSchema: {
     type: "object" as const,
     properties: {

@@ -9,7 +9,7 @@ export const getBuildLogsSchema = z.object({
 
 export const getBuildLogsTool = {
   name: "get_build_logs",
-  description: "Get logs for a build",
+  description: "Retrieve console output logs from a build. Get all logs concatenated or specify a logId for a specific task's output. Use this to troubleshoot failed builds, review test output, or audit what commands were executed.",
   inputSchema: {
     type: "object" as const,
     properties: {

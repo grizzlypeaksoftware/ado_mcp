@@ -16,7 +16,7 @@ export const updatePullRequestSchema = z.object({
 
 export const updatePullRequestTool = {
   name: "update_pull_request",
-  description: "Update a pull request",
+  description: "Update an existing pull request's properties. Can change title, description, status (active/abandoned), draft status, auto-complete settings, and merge options. Use this to modify PR details, abandon a PR, or toggle draft mode.",
   inputSchema: {
     type: "object" as const,
     properties: {

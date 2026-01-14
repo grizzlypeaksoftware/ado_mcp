@@ -11,7 +11,7 @@ export const getFileContentSchema = z.object({
 
 export const getFileContentTool = {
   name: "get_file_content",
-  description: "Get content of a file from repository",
+  description: "Retrieve the contents of a file from a Git repository. Can fetch from a specific branch or commit. Returns file content as text (UTF-8) or base64 for binary files. Use this to read source code, configuration files, or any file stored in the repository.",
   inputSchema: {
     type: "object" as const,
     properties: {
