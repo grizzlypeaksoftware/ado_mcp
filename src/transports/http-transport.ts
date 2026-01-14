@@ -283,23 +283,29 @@ export class HttpTransport {
    */
   async start(): Promise<void> {
     return new Promise((resolve, reject) => {
-      try {
-        this.httpServer = this.app.listen(this.port, () => {
-          console.log(`MCP HTTP Server listening on port ${this.port}`);
-          console.log(`Health check: http://localhost:${this.port}/health`);
-          console.log(`MCP endpoint: http://localhost:${this.port}/mcp`);
-          resolve();
-        });
+      // Create server without starting to listen yet
+      this.httpServer = this.app.listen(this.port);
 
-        this.httpServer.on("error", (error: NodeJS.ErrnoException) => {
-          if (error.code === "EADDRINUSE") {
-            console.error(`Port ${this.port} is already in use`);
-          }
-          reject(error);
-        });
-      } catch (error) {
+      // Handle successful listening
+      this.httpServer.on("listening", () => {
+        console.log(`MCP HTTP Server listening on port ${this.port}`);
+        console.log(`Health check: http://localhost:${this.port}/health`);
+        console.log(`MCP endpoint: http://localhost:${this.port}/mcp`);
+        resolve();
+      });
+
+      // Handle errors (including EADDRINUSE)
+      this.httpServer.on("error", (error: NodeJS.ErrnoException) => {
+        if (error.code === "EADDRINUSE") {
+          console.error(`\nError: Port ${this.port} is already in use.`);
+          console.error(`Try one of the following:`);
+          console.error(`  1. Stop the process using port ${this.port}`);
+          console.error(`  2. Set a different port: MCP_HTTP_PORT=3001 npm run start:http\n`);
+        } else {
+          console.error(`\nError starting server: ${error.message}\n`);
+        }
         reject(error);
-      }
+      });
     });
   }
 
